@@ -15,18 +15,21 @@ cursor = connection.cursor()
 # Query 3 - Select only "Queen" from the "Artist" table
 # Directly includes the value in the query string, which is less secure.
 # cursor.execute('SELECT * FROM "Artist" WHERE "Name" = \'Queen\'') # backslash is used to escape the single quote
-
+# ******************************************************
 # Uses a parameterized query, which is more secure and the recommended practice.
-cursor.execute('SELECT * FROM "Artist" WHERE "Name" = %s', ['Queen']) # using a placeholder to avoid SQL injection (passing a list)
+# cursor.execute('SELECT * FROM "Artist" WHERE "Name" = %s', ['Bruce Dickinson']) # using a placeholder to avoid SQL injection (passing a list)
 
 # Query 4 - Select only by "ArtistId" # 51 (using a placeholder)
-cursor.execute('SELECT * FROM "Artist" WHERE "ArtistId" = %s', [51])
+# cursor.execute('SELECT * FROM "Artist" WHERE "ArtistId" = %s', [14])
 
 # Query 5 - Select only the albums with "ArtistId" # 51 on the "Album" table
-cursor.execute('SELECT * FROM "Album" WHERE "ArtistId" = %s', [51])
+# cursor.execute('SELECT * FROM "Album" WHERE "ArtistId" = %s', [14])
 
 # Query 6 - Select all tracks where the composer is "Queen" from the "Track" table
-cursor.execute('SELECT * FROM "Track" WHERE "Composer" = %s', ['Queen'])
+# cursor.execute('SELECT * FROM "Track" WHERE "Composer" = %s', ['Bruce Dickinson'])
+
+# Query 7 - Select all tracks where the composer is "Hendrix" from the "Track" table
+cursor.execute('SELECT * FROM "Track" WHERE "Composer" = %s', ['Bruce Dickinson'])
 
 # fetch the results (multiple), setting a variable to hold the results
 results = cursor.fetchall()
@@ -40,4 +43,9 @@ connection.close()
 # print the results using a loop
 for result in results:
     print(result)
+    # if no results found, print a message
+if not results:
+    print("No results found")
+
+
 
